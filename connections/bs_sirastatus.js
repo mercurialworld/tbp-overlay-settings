@@ -71,7 +71,7 @@ function parseSiraPerformanceStatus(data) {
 	currentBSState.combo = data.combo;
 	currentBSState.elapsed = data.currentSongTime;
 	currentBSState.hits = data.hitNotes;
-	currentBSState.misses = data.missedNotes;
+	currentBSState.misses = Math.floor(data.missedNotes / 2); // this event is emitted twice
 	currentBSState.score = data.score;
 	currentBSState.health = data.energy;
 
@@ -192,7 +192,7 @@ const siraStatusFunctions = {
 	},
 
 	noteMissed: function(data) {
-		if("performance" in data) { parseSiraPerformanceStatus(data.performance); }
+		if("noteCut" in data) { parseSiraPerformanceStatus(data.performance); }
 	},
 
 	bombCut: function(data) {
